@@ -15,14 +15,39 @@ holiday_supplies = {
 }
 
 def second_supply_for_fourth_of_july(holiday_supplies)
-  holiday_supplies.map do |season, holidays|
-    holidays.map do |holiday, supplies|
-      supplies if supplies.include?("BBQ")
-    end
-  end.flatten.compact
+  holiday_supplies[:summer][:fourth_of_july][1]
 end
 
-def all_supplies(holiday_supplies)
+def add_supply_to_winter_holidays(holiday_hash, supply)
+  # holiday_hash is identical to the one above
+  # add the second parameter, which is a supply, to BOTH the
+  # Christmas AND the New Year's arrays
+  # using .each or .collect or .map
+  holiday_hash[:winter].collect do |holidays, items|
+    items << supply
+  end
+end
+
+
+def add_supply_to_memorial_day(holiday_hash, supply)
+  # again, holiday_hash is the same as the ones above
+  # add the second argument to the memorial day array
+  # you do not need to iterate this time
+  holiday_hash[:spring][:memorial_day] << supply
+end
+
+def all_winter_holiday_supplies(holiday_hash)
+  holiday_hash[:winter].collect do |holidays, items|
+    items
+  end.flatten
+end
+
+def add_new_holiday_with_supplies(holiday_hash, season, holiday_name, supply_array)
+  holiday_hash[season][holiday_name] = supply_array
+  holiday_hash
+end
+
+def all_supplies_in_holidays(holiday_supplies)
   holiday_supplies.each do |season, data|
     puts "#{season.to_s.capitalize!}:"
     data.each do |holiday, supply|
